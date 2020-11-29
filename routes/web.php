@@ -11,8 +11,6 @@
 |
 */
 
-Route::get('/', 'Taskconntroller@index');
+Route::get('/', 'Taskscontroller@index');
 
-
-    return view('welcome');
-});
+Route::resource('tasks','Taskscontroller');

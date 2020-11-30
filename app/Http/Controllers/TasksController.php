@@ -30,8 +30,7 @@ class TasksController extends Controller
      */
     public function create()
     {
-        //
-        $tasks = new Tasks;
+        $task = new Task;
         
         return view('tasks.create', [
             'task' => $task,

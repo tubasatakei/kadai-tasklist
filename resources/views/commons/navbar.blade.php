@@ -10,7 +10,8 @@
         <div class="collapse navbar-collapse" id="nav-bar">
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
-                
+                <li class="nav-item">{!! link_to_route('signup.get', 'ユーザ登録', [], ['class' => 'nav-link']) !!}</li>
+                <li class="nav-item">{!! link_to_route('login', 'ログイン', [], ['class' => 'nav-link']) !!}</li>
                 <li class="nav-item">{!! link_to_route('tasks.create', '新規タスクの投稿',[], ['class' => 'nav-link']) !!}</li>
             </ul>
         </div>

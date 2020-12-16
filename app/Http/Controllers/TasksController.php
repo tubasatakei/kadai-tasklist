@@ -15,14 +15,17 @@ class TasksController extends Controller
      */
     public function index()
     {
-        //
-        $tasks = Task::all();
-        
-        return view('tasks.index', [
-            'tasks' => $tasks,
-        ]);
+        $data = [];
+        if (\Auth::check()) {
+            $user = \Auth::user();
+            
+            $data = [
+                'user' => $user,
+            ];
+        }
+        return view('welcome', $data);
     }
-
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -49,12 +52,10 @@ class TasksController extends Controller
             'content' => 'required|max:255',
             'status' => 'required|max:10',
         ]);
-        
-        $task = new Task;
-        $task->content = $request->content;
-        $task->status = $request->status;
-        $task->save();
-        
+        $request->user()->tasks()->create([
+            'content' => $request->content,
+            'status' => $request->status,
+        ]);
         return redirect('/');
     }
 
@@ -121,9 +122,11 @@ class TasksController extends Controller
     public function destroy($id)
     {
         //
-        $task = Task::findOrFail($id);
+        $task = \App\Tasklist::findOrFail($id);
         
-        $task->delete();
+        if(\Auth::id() === $tasklist->user_id) {
+        $tasklist->delete();
+        }
         
         return redirect('/');
     }

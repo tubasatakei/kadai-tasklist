@@ -31,10 +31,8 @@
     {!! link_to_route('tasks.create', '新規タスクの投稿', [], ['class' => 'btn btn-primary']) !!}
     
     @else
-    
-     {!! link_to_route('signup.get', 'ユーザ登録', [], ['class' => 'nav-link']) !!}
-     {!! link_to_route('login', 'ログイン', [], ['class' => 'nav-link']) !!}
+    return redirecy('/');
      
-     @endif
+    @endif
      
 @endsection

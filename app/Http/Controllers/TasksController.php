@@ -18,9 +18,11 @@ class TasksController extends Controller
         $data = [];
         if (\Auth::check()) {
             $user = \Auth::user();
+            $tasks = $user->tasks()->orderBy('created_at', 'desc')->paginate(10);
             
             $data = [
                 'user' => $user,
+                'tasks' =>$tasks,
             ];
         }
         return view('welcome', $data);
@@ -122,10 +124,10 @@ class TasksController extends Controller
     public function destroy($id)
     {
         //
-        $task = \App\Tasklist::findOrFail($id);
+        $task = \App\Task::findOrFail($id);
         
-        if(\Auth::id() === $tasklist->user_id) {
-        $tasklist->delete();
+        if(\Auth::id() === $task->user_id) {
+        $task->delete();
         }
         
         return redirect('/');

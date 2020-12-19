@@ -20,12 +20,12 @@ class TasksController extends Controller
             $user = \Auth::user();
             $tasks = $user->tasks()->orderBy('created_at', 'desc')->paginate(10);
             
-            $data = [
+            return view('tasks.index',[
                 'user' => $user,
                 'tasks' =>$tasks,
-            ];
+            ]);
         }
-        return view('welcome', $data);
+        return view('welcome',$data);
     }
     
     /**
@@ -88,9 +88,11 @@ class TasksController extends Controller
         //
         $task = Task::findOrFail($id);
         
+        if(\Auth::id() === $task->user_id) {
         return view('tasks.edit', [
             'task' =>$task,
         ]);
+        }
     }
 
     /**
@@ -107,11 +109,14 @@ class TasksController extends Controller
             'status' => 'required|max:10',
         ]);
         
-        $task = Task::findOrFail($id);
+        $task = \App\Task::findOrFail($id);
+        
+        if(\Auth::id() === $task->user_id) {
         $task->content = $request->content;
         $task->status = $request->status;
-        $task->save();
         
+        $task->save();
+        }
         return redirect('/');
     }
 

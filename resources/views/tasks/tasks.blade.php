@@ -3,7 +3,7 @@
         @foreach ($tasks as $tasklist)
             <li class="media mb-3">
                 <div>
-                    <p class="mb-0">{!! nl2br(e($tasklist->content)) !!}</p>
+                    <p class="mb-0">{!! nl2br(e($tasklist->content,$tasklist->status)) !!}</p>
                 </div>
                 <div>
                     @if (Auth::id() == $tasklist->user_id)

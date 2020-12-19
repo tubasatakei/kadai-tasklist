@@ -2,10 +2,8 @@
 
 @section('content')
 
-    {{--　未ログイン時は一覧を見られなくする--}}
-    @if (Auth::check())
-    
-        <h1>一覧</h1>
+
+    <h1>一覧</h1>
         
         @if (count($tasks) > 0)
             <table class="table table-striped">
@@ -27,12 +25,9 @@
                 </tbody>
             </table>
         @endif
+        
+    {{ $tasks->links() }}
     
     {!! link_to_route('tasks.create', '新規タスクの投稿', [], ['class' => 'btn btn-primary']) !!}
-    
-    @else
-    return redirecy('/');
-     
-    @endif
      
 @endsection
